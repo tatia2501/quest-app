@@ -2,59 +2,15 @@
 <html lang="ru">
 <head>
   {{>head}}
-  <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
+  <script type="module" src="scripts/activate.js"></script>
 </head>
 <body>
 <main>
-<button onclick="activateXR()">Start quest</button>
-<script>
-  async function activateXR() {
-    const canvas = document.createElement("canvas");
-    document.body.appendChild(canvas);
-    const gl = canvas.getContext("webgl", {xrCompatible: true});
-
-    const scene = new THREE.Scene();
-
-    const renderer = new THREE.WebGLRenderer({
-      alpha: true,
-      preserveDrawingBuffer: true,
-      canvas: canvas,
-      context: gl
-    });
-    renderer.autoClear = false;
-
-    const camera = new THREE.PerspectiveCamera();
-    camera.matrixAutoUpdate = false;
-
-    const session = await navigator.xr.requestSession("immersive-ar");
-    session.updateRenderState({
-      baseLayer: new XRWebGLLayer(session, gl)
-    });
-
-    const referenceSpace = await session.requestReferenceSpace('local');
-
-    const onXRFrame = (time, frame) => {
-      session.requestAnimationFrame(onXRFrame);
-
-      gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer)
-
-      const pose = frame.getViewerPose(referenceSpace);
-      if (pose) {
-        const view = pose.views[0];
-
-        const viewport = session.renderState.baseLayer.getViewport(view);
-        renderer.setSize(viewport.width, viewport.height)
-
-        camera.matrix.fromArray(view.transform.matrix)
-        camera.projectionMatrix.fromArray(view.projectionMatrix);
-        camera.updateMatrixWorld(true);
-
-        renderer.render(scene, camera)
-      }
-    }
-    session.requestAnimationFrame(onXRFrame);
-  }
-</script>
+  <div id="main_page">
+    <p class="main_text">Введите название команды</p>
+    <input id="input" type="text" value="" placeholder="Введите название">
+    <button id="start_btn">Начать</button>
+  </div>
 </main>
 </body>
 </html>

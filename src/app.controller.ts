@@ -9,15 +9,7 @@ export class AppController {
   @Render('index')
   index() {
     return {
-      title: 'Кокос',
+      title: 'Квест',
     };
   }
-
-  // @Get('/login')
-  // @Render('login')
-  // login() {
-  //   return {
-  //     title: 'Личный кабинет',
-  //   };
-  // }
 }
