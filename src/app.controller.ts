@@ -12,4 +12,12 @@ export class AppController {
       title: 'Квест',
     };
   }
+
+  @Get('/ar')
+  @Render('ar')
+  ar() {
+    return {
+      title: 'Квест',
+    };
+  }
 }
