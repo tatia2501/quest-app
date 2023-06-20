@@ -12,10 +12,25 @@ export class AppController {
       title: 'Квест',
     };
   }
-
   @Get('/ar')
   @Render('ar')
   ar() {
+    return {
+      title: 'Квест',
+    };
+  }
+
+  @Get('/edit')
+  @Render('edit')
+  edit() {
+    return {
+      title: 'Квест',
+    };
+  }
+
+  @Get('/results')
+  @Render('results')
+  results() {
     return {
       title: 'Квест',
     };

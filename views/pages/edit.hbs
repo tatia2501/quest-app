@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  {{>head}}
+</head>
+<body>
+<main>
+  <div class="edit">
+    <div class="edit_section">
+      <p class="edit_header">Маркеры</p>
+      <div class="edit_piece">
+        <div class="params">
+          <div class="param">
+            <p class="edit_text">image1.jpeg</p>
+            <input id="edit_input_img" type="text" value="" placeholder="Изображение">
+            <button id="edit_btn_img">изменить</button>
+          </div>
+          <div class="param">
+            <p class="edit_text">Текст, соответсвующий изображению</p>
+            <input id="edit_input_text" type="text" value="" placeholder="Текст">
+            <button id="edit_btn_text">изменить</button>
+          </div>
+        </div>
+        <button class="edit_delete_btn">удалить</button>
+      </div>
+      <button class="edit_add_btn">Добавить</button>
+    </div>
+    <div class="edit_section">
+      <p class="edit_header">Анимации</p>
+      <div class="edit_piece">
+        <div class="params">
+          <div class="param">
+            <p class="edit_text">Позиция</p>
+            <input id="edit_input_pos" type="text" value="" placeholder="Позиция">
+            <button id="edit_btn_pos">изменить</button>
+          </div>
+          <div class="param">
+            <p class="edit_text">Анимация</p>
+            <input id="edit_input_anim" type="text" value="" placeholder="Анимация">
+            <button id="edit_btn_anim">изменить</button>
+          </div>
+        </div>
+        <button class="edit_delete_btn">удалить</button>
+      </div>
+      <button class="edit_add_btn">Добавить</button>
+    </div>
+    <a class="watch_results_btn" href="/results">Посмотреть результаты</a>
+  </div>
+</main>
+</body>
+</html>
