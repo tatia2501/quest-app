@@ -13,8 +13,6 @@
 <script>
   var scene, camera, renderer, clock, deltaTime, totalTime;
   var arToolkitSource, arToolkitContext;
-  var markerRoot1;
-  var mesh1;
 
   initialize();
   animate();
@@ -75,25 +73,32 @@
       camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
     });
 
-    markerRoot1 = new THREE.Group();
-    scene.add(markerRoot1);
-    let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
-      type: 'pattern', patternUrl: "data/pattern-marker.patt",
+    var hiro = new THREE.Group();
+    scene.add(hiro);
+    new THREEx.ArMarkerControls(arToolkitContext, hiro, {
+      type: 'pattern', patternUrl: "data/hiro.patt",
+    })
+
+    var kanji = new THREE.Group();
+    scene.add(kanji);
+    new THREEx.ArMarkerControls(arToolkitContext, kanji, {
+      type: 'pattern', patternUrl: "data/kanji.patt",
     })
 
     const loader = new THREE.FontLoader()
     loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
-      const geometry = new THREE.TextGeometry('You are beautiful!', {
+      const hiro_text = new THREE.TextGeometry('You are beautiful!', {
         font: font,
-        size: 0.2,
-        height: 0.2,
-        curveSegments: 12,
-        bevelEnabled: false,
-        bevelThickness: 0.5,
-        bevelSize: 0.3,
-        bevelOffset: 0,
-        bevelSegments: 5,
+        size: 0.1,
+        height: 0.1
       })
+
+      const kanji_text = new THREE.TextGeometry('Hello cutie!', {
+        font: font,
+        size: 0.1,
+        height: 0.1
+      })
+
       const material = new THREE.MeshFaceMaterial([
         new THREE.MeshPhongMaterial({
           color: 0x000000,
@@ -104,10 +109,18 @@
         }),
       ])
 
-      const mesh = new THREE.Mesh(geometry, material)
-      mesh.name = 'text'
-      mesh.rotation.x = -Math.PI/2;
-      markerRoot1.add(mesh)
+      const hiro_mesh = new THREE.Mesh(hiro_text, material)
+      hiro_mesh.name = 'text'
+      hiro_mesh.rotation.x = -Math.PI/2;
+      hiro_mesh.position.y = -7;
+      hiro_mesh.position.z = 1;
+      hiro.add(hiro_mesh)
+
+      const kanji_mesh = new THREE.Mesh(kanji_text, material)
+      kanji_mesh.name = 'text'
+      kanji_mesh.rotation.x = -Math.PI/2;
+      kanji_mesh.position.y = -7;
+      kanji.add(kanji_mesh)
     })
   }
 
