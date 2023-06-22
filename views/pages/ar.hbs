@@ -14,53 +14,51 @@
   var scene, camera, renderer, clock, deltaTime, totalTime;
   var arToolkitSource, arToolkitContext;
 
-  initialize();
-  animate();
+  const getMarkers = async () => {
+    return await fetch(`/marker`, { method: 'GET' }).then((response) => response.json());
+  };
 
-  function initialize()
-  {
+  async function initialize() {
     scene = new THREE.Scene();
 
-    let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
-    scene.add( ambientLight );
+    let ambientLight = new THREE.AmbientLight(0xcccccc, 0.5);
+    scene.add(ambientLight);
 
     camera = new THREE.Camera();
     scene.add(camera);
 
     renderer = new THREE.WebGLRenderer({
-      antialias : true,
+      antialias: true,
       alpha: true
     });
     renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-    renderer.setSize( 640, 480 );
+    renderer.setSize(640, 480);
     renderer.domElement.style.position = 'absolute'
     renderer.domElement.style.top = '0px'
     renderer.domElement.style.left = '0px'
-    document.body.appendChild( renderer.domElement );
+    document.body.appendChild(renderer.domElement);
 
     clock = new THREE.Clock();
     deltaTime = 0;
     totalTime = 0;
 
     arToolkitSource = new THREEx.ArToolkitSource({
-      sourceType : 'webcam',
+      sourceType: 'webcam',
     });
 
-    function onResize()
-    {
+    function onResize() {
       arToolkitSource.onResize()
       arToolkitSource.copySizeTo(renderer.domElement)
-      if ( arToolkitContext.arController !== null )
-      {
+      if (arToolkitContext.arController !== null) {
         arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)
       }
     }
 
-    arToolkitSource.init(function onReady(){
+    arToolkitSource.init(function onReady() {
       onResize()
     });
 
-    window.addEventListener('resize', function(){
+    window.addEventListener('resize', function() {
       onResize()
     });
 
@@ -69,59 +67,40 @@
       detectionMode: 'mono'
     });
 
-    arToolkitContext.init( function onCompleted(){
-      camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
+    arToolkitContext.init(function onCompleted() {
+      camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
     });
 
-    var hiro = new THREE.Group();
-    scene.add(hiro);
-    new THREEx.ArMarkerControls(arToolkitContext, hiro, {
-      type: 'pattern', patternUrl: "data/hiro.patt",
-    })
+    const data = (await getMarkers()).slice();
+    var markerRoots = [];
+    var i = 0;
 
-    var kanji = new THREE.Group();
-    scene.add(kanji);
-    new THREEx.ArMarkerControls(arToolkitContext, kanji, {
-      type: 'pattern', patternUrl: "data/kanji.patt",
-    })
+    for (const item of data) {
+      markerRoots[i] = new THREE.Group();
 
-    const loader = new THREE.FontLoader()
-    loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
-      const hiro_text = new THREE.TextGeometry('You are beautiful!', {
-        font: font,
-        size: 0.1,
-        height: 0.1
+      new THREEx.ArMarkerControls(arToolkitContext, markerRoots[i], {
+        type: 'pattern', patternUrl: `data/${item.image}.patt`,
       })
 
-      const kanji_text = new THREE.TextGeometry('Hello cutie!', {
-        font: font,
-        size: 0.1,
-        height: 0.1
+      const canvas = document.createElement('canvas')
+      const context = canvas.getContext('2d')
+      context.fillStyle = 'black'
+      context.font = '10px sans-serif'
+      context.fillText(`${item.text}`, 90, 90)
+      const texture = new THREE.Texture(canvas)
+      texture.needsUpdate = true
+      var material = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
       })
-
-      const material = new THREE.MeshFaceMaterial([
-        new THREE.MeshPhongMaterial({
-          color: 0x000000,
-          flatShading: true,
-        }),
-        new THREE.MeshPhongMaterial({
-          color: 0xffffff
-        }),
-      ])
-
-      const hiro_mesh = new THREE.Mesh(hiro_text, material)
-      hiro_mesh.name = 'text'
-      hiro_mesh.rotation.x = -Math.PI/2;
-      hiro_mesh.position.y = -7;
-      hiro_mesh.position.z = 1;
-      hiro.add(hiro_mesh)
-
-      const kanji_mesh = new THREE.Mesh(kanji_text, material)
-      kanji_mesh.name = 'text'
-      kanji_mesh.rotation.x = -Math.PI/2;
-      kanji_mesh.position.y = -7;
-      kanji.add(kanji_mesh)
-    })
+      material.transparent = true
+      var mesh = new THREE.Mesh(new THREE.PlaneGeometry(3, 3), material)
+      mesh.name = 'text'
+      mesh.rotation.x = -Math.PI / 2;
+      markerRoots[i].add(mesh)
+      scene.add(markerRoots[i]);
+      i++;
+    }
   }
 
   function update()
@@ -143,6 +122,9 @@
     update();
     render();
   }
+
+  initialize();
+  animate();
 </script>
 </body>
 </html>
