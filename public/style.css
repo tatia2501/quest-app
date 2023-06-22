@@ -1,0 +1,264 @@
+#main_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#new_team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #e7f7fc;
+    height: 250px;
+    width: 95%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 1px dotted #5cccee;
+    border-radius: 10px;
+}
+
+#continue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fce7f7;
+    height: 250px;
+    width: 95%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 1px dotted #ee5ccc;
+    border-radius: 10px;
+}
+
+#input_name_new {
+    font-family: 'Jost', sans-serif;
+    border-color: #5cccee;
+    margin: 2px;
+}
+
+#input_name_old {
+    font-family: 'Jost', sans-serif;
+    border-color: #ee5ccc;
+    margin: 2px;
+}
+
+#input_password_new {
+    font-family: 'Jost', sans-serif;
+    border-color: #5cccee;
+    margin: 2px;
+}
+
+#input_password_old {
+    font-family: 'Jost', sans-serif;
+    border-color: #ee5ccc;
+    margin: 2px;
+}
+
+#start_btn {
+    font-family: 'Jost', sans-serif;
+    color: #000000;
+    border-color: #5cccee;
+    margin: 2px;
+}
+
+#continue_btn {
+    font-family: 'Jost', sans-serif;
+    color: #000000;
+    border-color: #ee5ccc;
+    margin: 2px;
+}
+
+.main_text {
+    font-family: 'Jost', sans-serif;
+    font-weight: bolder;
+    font-size: large;
+    margin: 4px;
+}
+
+.second_text {
+    font-family: 'Jost', sans-serif;
+    font-size: medium;
+    margin: 2px;
+}
+
+.edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lora', serif;
+}
+
+.edit_section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit_header{
+    font-family: 'Lora', serif;
+    font-size: x-large;
+    margin: 7px;
+}
+
+.edit_piece {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f7fce7;
+    border: 2px dotted #ccee5c;
+    width: 700px;
+}
+
+.params {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.param {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 20px;
+}
+
+#edit_input_img {
+    font-family: 'Lora', serif;
+    margin: 3px;
+}
+
+#edit_input_text {
+    font-family: 'Lora', serif;
+    margin: 3px;
+}
+
+#edit_btn_img {
+    font-family: 'Lora', serif;
+    color: #000000;
+    background: #ccee5c;
+    border-color: #9bc414;
+    margin: 3px;
+}
+
+#edit_btn_text {
+    font-family: 'Lora', serif;
+    color: #000000;
+    background: #ccee5c;
+    border-color: #9bc414;
+    margin: 3px;
+}
+
+#edit_input_pos {
+    font-family: 'Lora', serif;
+    margin: 3px;
+}
+
+#edit_btn_pos {
+    font-family: 'Lora', serif;
+    color: #000000;
+    background: #ccee5c;
+    border-color: #9bc414;
+    margin: 3px;
+}
+
+#edit_input_anim {
+    font-family: 'Lora', serif;
+    margin: 3px;
+}
+
+#edit_btn_anim {
+    font-family: 'Lora', serif;
+    color: #000000;
+    background: #ccee5c;
+    border-color: #9bc414;
+    margin: 3px;
+}
+
+.edit_delete_btn {
+    font-family: 'Lora', serif;
+    color: #000000;
+    background: #ccee5c;
+    border-color: #9bc414;
+    margin: 3px 3px 10px 600px;
+}
+
+.edit_add_btn {
+    font-family: 'Lora', serif;
+    color: #000000;
+    background: #ccee5c;
+    margin: 10px 3px 3px 600px;
+    border-color: #9bc414;
+}
+
+.watch_results_btn {
+    font-family: 'Lora', serif;
+    font-size: large;
+    text-decoration: none;
+    color: #000000;
+    background: #ccee5c;
+    border: 2px solid #9bc414;
+}
+
+.result_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.table_results {
+    width: 500px;
+}
+
+table {
+    display: grid;
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    margin: 3%;
+    grid-template-columns:
+    minmax(300px, 6fr) minmax(100px, 2fr) minmax(100px, 2fr)
+}
+
+thead, tbody, tr {
+    display: contents;
+}
+
+th {
+    background: #ccee5c;
+    color: #000000;
+    padding: 10px;
+    text-align: center;
+}
+
+td {
+    color: #000000;
+    padding: 10px;
+    text-align: center;
+}
+
+tr:nth-child(even) td {
+    background: #f7fce7;
+}
+
+#results_delete_btn {
+    font-family: 'Lora', serif;
+    color: #000000;
+    background: #ccee5c;
+    margin: 10px 3px 3px 400px;
+    border-color: #9bc414;
+}
+
+.delete_one_result_btn {
+    font-family: 'Lora', serif;
+    color: #000000;
+    background: #f7fce7;
+    border-color: #ccee5c;
+}

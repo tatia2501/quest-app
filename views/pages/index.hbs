@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  {{>head}}
+  <script type="module" src="scripts/activate.js"></script>
+</head>
+<body>
+<main>
+  <div id="main_page">
+    <div id="new_team">
+      <p class="main_text">Новая команда</p>
+      <p class="second_text">Придумайте название</p>
+      <input id="input_name_new" type="text" value="" placeholder="Название">
+      <p class="second_text">Придумайте пароль</p>
+      <input id="input_password_new" type="text" value="" placeholder="Пароль">
+      <button id="start_btn">Начать</button>
+    </div>
+    <div id="continue">
+      <p class="main_text">Продолжить прохождение</p>
+      <p class="second_text">Введите название команды</p>
+      <input id="input_name_old" type="text" value="" placeholder="Название">
+      <p class="second_text">Введите пароль</p>
+      <input id="input_password_old" type="text" value="" placeholder="Пароль">
+      <button id="continue_btn">Продолжить</button>
+    </div>
+  </div>
+</main>
+</body>
+</html>
