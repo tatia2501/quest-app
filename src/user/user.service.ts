@@ -19,12 +19,22 @@ export class UserService {
     );
   }
 
-  async findUser(user: UserCreateDto): Promise<UserReturnDto> {
+  async findUser(name: string, password: string): Promise<UserReturnDto> {
     return new UserReturnDto(
-      await prisma.user.findFirst({
+      await prisma.user.findFirstOrThrow({
         where: {
-          name: user.name,
-          password: user.password,
+          name: name,
+          password: password,
+        },
+      }),
+    );
+  }
+
+  async checkUser(name: string): Promise<UserReturnInfoDto> {
+    return new UserReturnInfoDto(
+      await prisma.user.findFirstOrThrow({
+        where: {
+          name: name,
         },
       }),
     );
