@@ -13,56 +13,52 @@
 <script>
   var scene, camera, renderer, clock, deltaTime, totalTime;
   var arToolkitSource, arToolkitContext;
-  var markerRoot1;
-  var mesh1;
 
-  initialize();
-  animate();
+  const getMarkers = async () => {
+    return await fetch(`/marker`, { method: 'GET' }).then((response) => response.json());
+  };
 
-  function initialize()
-  {
+  async function initialize() {
     scene = new THREE.Scene();
 
-    let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
-    scene.add( ambientLight );
+    let ambientLight = new THREE.AmbientLight(0xcccccc, 0.5);
+    scene.add(ambientLight);
 
     camera = new THREE.Camera();
     scene.add(camera);
 
     renderer = new THREE.WebGLRenderer({
-      antialias : true,
+      antialias: true,
       alpha: true
     });
     renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-    renderer.setSize( 640, 480 );
+    renderer.setSize(640, 480);
     renderer.domElement.style.position = 'absolute'
     renderer.domElement.style.top = '0px'
     renderer.domElement.style.left = '0px'
-    document.body.appendChild( renderer.domElement );
+    document.body.appendChild(renderer.domElement);
 
     clock = new THREE.Clock();
     deltaTime = 0;
     totalTime = 0;
 
     arToolkitSource = new THREEx.ArToolkitSource({
-      sourceType : 'webcam',
+      sourceType: 'webcam',
     });
 
-    function onResize()
-    {
+    function onResize() {
       arToolkitSource.onResize()
       arToolkitSource.copySizeTo(renderer.domElement)
-      if ( arToolkitContext.arController !== null )
-      {
+      if (arToolkitContext.arController !== null) {
         arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)
       }
     }
 
-    arToolkitSource.init(function onReady(){
+    arToolkitSource.init(function onReady() {
       onResize()
     });
 
-    window.addEventListener('resize', function(){
+    window.addEventListener('resize', function() {
       onResize()
     });
 
@@ -71,44 +67,40 @@
       detectionMode: 'mono'
     });
 
-    arToolkitContext.init( function onCompleted(){
-      camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
+    arToolkitContext.init(function onCompleted() {
+      camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
     });
 
-    markerRoot1 = new THREE.Group();
-    scene.add(markerRoot1);
-    let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
-      type: 'pattern', patternUrl: "data/pattern-marker.patt",
-    })
+    const data = (await getMarkers()).slice();
+    var markerRoots = [];
+    var i = 0;
 
-    const loader = new THREE.FontLoader()
-    loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
-      const geometry = new THREE.TextGeometry('You are beautiful!', {
-        font: font,
-        size: 0.2,
-        height: 0.2,
-        curveSegments: 12,
-        bevelEnabled: false,
-        bevelThickness: 0.5,
-        bevelSize: 0.3,
-        bevelOffset: 0,
-        bevelSegments: 5,
+    for (const item of data) {
+      markerRoots[i] = new THREE.Group();
+
+      new THREEx.ArMarkerControls(arToolkitContext, markerRoots[i], {
+        type: 'pattern', patternUrl: `data/${item.image}.patt`,
       })
-      const material = new THREE.MeshFaceMaterial([
-        new THREE.MeshPhongMaterial({
-          color: 0x000000,
-          flatShading: true,
-        }),
-        new THREE.MeshPhongMaterial({
-          color: 0xffffff
-        }),
-      ])
 
-      const mesh = new THREE.Mesh(geometry, material)
+      const canvas = document.createElement('canvas')
+      const context = canvas.getContext('2d')
+      context.fillStyle = 'black'
+      context.font = '10px sans-serif'
+      context.fillText(`${item.text}`, 90, 90)
+      const texture = new THREE.Texture(canvas)
+      texture.needsUpdate = true
+      var material = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+      })
+      material.transparent = true
+      var mesh = new THREE.Mesh(new THREE.PlaneGeometry(3, 3), material)
       mesh.name = 'text'
-      mesh.rotation.x = -Math.PI/2;
-      markerRoot1.add(mesh)
-    })
+      mesh.rotation.x = -Math.PI / 2;
+      markerRoots[i].add(mesh)
+      scene.add(markerRoots[i]);
+      i++;
+    }
   }
 
   function update()
@@ -130,6 +122,9 @@
     update();
     render();
   }
+
+  initialize();
+  animate();
 </script>
 </body>
 </html>
