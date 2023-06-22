@@ -24,15 +24,23 @@ export class MarkerService {
     });
     return markers;
   }
-  async addMarker(marker: MarkerCreateDto): Promise<MarkerReturnDto> {
-    return new MarkerReturnDto(
-      await prisma.marker.create({
-        data: {
-          image: marker.image,
-          text: marker.text,
-        },
-      }),
-    );
+  // async addMarker(marker: MarkerCreateDto): Promise<MarkerReturnDto> {
+  //   return new MarkerReturnDto(
+  //     await prisma.marker.create({
+  //       data: {
+  //         image: marker.image,
+  //         text: marker.text,
+  //       },
+  //     }),
+  //   );
+  // }
+  async addMarker() {
+    await prisma.marker.create({
+      data: {
+        image: 'выберете изображение',
+        text: 'введите текст',
+      },
+    });
   }
   async deleteMarker(id: string) {
     await prisma.marker.delete({
@@ -45,20 +53,15 @@ export class MarkerService {
   async deleteAll() {
     await prisma.marker.deleteMany();
   }
-  async changeMarker(
-    id: string,
-    marker: MarkerCreateDto,
-  ): Promise<MarkerReturnDto> {
-    return new MarkerReturnDto(
-      await prisma.marker.update({
-        where: {
-          id,
-        },
-        data: {
-          image: marker.image,
-          text: marker.text,
-        },
-      }),
-    );
+  async changeMarker(id: string, marker: MarkerCreateDto) {
+    await prisma.marker.update({
+      where: {
+        id,
+      },
+      data: {
+        image: marker.image,
+        text: marker.text,
+      },
+    });
   }
 }

@@ -105,6 +105,16 @@
     margin: 7px;
 }
 
+#edit_piece {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f7fce7;
+    border: 2px dotted #ccee5c;
+    width: 700px;
+}
+
 .edit_piece {
     display: flex;
     flex-direction: column;
@@ -182,7 +192,7 @@
     margin: 3px;
 }
 
-.edit_delete_btn {
+#edit_delete_btn {
     font-family: 'Lora', serif;
     color: #000000;
     background: #ccee5c;

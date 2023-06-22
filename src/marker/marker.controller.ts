@@ -42,15 +42,22 @@ export class MarkerController {
   async findAll(): Promise<MarkerReturnDto[]> {
     return this.markerService.findAll();
   }
+  // @Post('')
+  // @ApiCreatedResponse({
+  //   description: '',
+  //   type: MarkerReturnDto,
+  // })
+  // @ApiForbiddenResponse({ description: '' })
+  // async addMarker(@Body() Marker: MarkerCreateDto): Promise<MarkerReturnDto> {
+  //   return this.markerService.addMarker(Marker);
+  // }
   @Post('')
-  @ApiCreatedResponse({
-    description: '',
-    type: MarkerReturnDto,
-  })
+  @ApiCreatedResponse({ description: '' })
   @ApiForbiddenResponse({ description: '' })
-  async addMarker(@Body() Marker: MarkerCreateDto): Promise<MarkerReturnDto> {
-    return this.markerService.addMarker(Marker);
+  async addMarker() {
+    await this.markerService.addMarker();
   }
+
   @Delete(':marker_id')
   @ApiOkResponse({ description: '' })
   @ApiForbiddenResponse({
@@ -68,17 +75,12 @@ export class MarkerController {
     await this.markerService.deleteAll();
   }
   @Put(':marker_id')
-  @ApiOkResponse({
-    description: '',
-    type: MarkerReturnDto,
-  })
-  @ApiForbiddenResponse({
-    description: '',
-  })
+  @ApiOkResponse({ description: '' })
+  @ApiForbiddenResponse({ description: '' })
   async changeMarker(
     @Param('marker_id', ParseUUIDPipe) id: string,
     @Body() Marker: MarkerCreateDto,
-  ): Promise<MarkerReturnDto> {
-    return this.markerService.changeMarker(id, Marker);
+  ) {
+    await this.markerService.changeMarker(id, Marker);
   }
 }
