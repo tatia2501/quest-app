@@ -6,6 +6,14 @@ const getUsers = async () => {
   );
 };
 
+const deleteUser = async (user_id) => {
+  await fetch(`/user/${user_id}`, { method: 'DELETE' });
+};
+
+const deleteAll = async () => {
+  await fetch(`/user`, { method: 'DELETE' });
+};
+
 async function getAllUsers() {
   const data = (await getUsers()).slice();
   for (const item of data) {
@@ -25,10 +33,17 @@ async function getAllUsers() {
     delete_one_result_btn.textContent = 'удалить';
     third_cell.appendChild(delete_one_result_btn);
 
-    delete_one_result_btn.addEventListener('click', function () {
-      console.log('cool');
+    delete_one_result_btn.addEventListener('click', async function () {
+      await deleteUser(item.id);
+      window.location.reload();
     });
   }
 }
+
+let results_delete_btn = document.getElementById('results_delete_btn');
+results_delete_btn.addEventListener('click', async () => {
+  await deleteAll();
+  window.location.reload();
+});
 
 getAllUsers();
