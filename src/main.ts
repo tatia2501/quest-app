@@ -4,9 +4,21 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import hbs = require('hbs');
 import { Logger } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  const config = new DocumentBuilder()
+    .setTitle('Quest')
+    .setDescription('The questApp API description')
+    .setVersion('1.0')
+    .addTag('user')
+    .addTag('marker')
+    .addTag('animation')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views', 'pages'));
@@ -14,6 +26,7 @@ async function bootstrap() {
 
   hbs.registerPartials(join(__dirname, '..', 'views', 'partials'));
   Logger.log(`Application is running on: http://localhost:3000`);
+  Logger.log(`Swagger is running on: http://localhost:3000/api`);
   await app.listen(3000);
 }
 bootstrap();
