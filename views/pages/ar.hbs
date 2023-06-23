@@ -78,9 +78,13 @@
     for (const item of data) {
       markerRoots[i] = new THREE.Group();
 
-      new THREEx.ArMarkerControls(arToolkitContext, markerRoots[i], {
+      let markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoots[i], {
         type: 'pattern', patternUrl: `data/${item.image}.patt`,
       })
+
+      markerControls.addEventListener('markerFound', ()  => {
+        console.log(item.text);
+      });
 
       const canvas = document.createElement('canvas')
       const context = canvas.getContext('2d')
@@ -98,6 +102,7 @@
       mesh.name = 'text'
       mesh.rotation.x = -Math.PI / 2;
       markerRoots[i].add(mesh)
+
       scene.add(markerRoots[i]);
       i++;
     }
