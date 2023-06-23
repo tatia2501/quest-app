@@ -67,6 +67,11 @@ const checkUser = async (name) => {
         input_password_new.value,
       );
       window.sessionStorage.setItem('user_code', user.user_code);
+      window.sessionStorage.setItem('total_score', '0');
+      window.sessionStorage.setItem(
+        'start_time',
+        String(Date.parse(new Date())),
+      );
       window.location.href = '/ar';
     }
   });
@@ -101,6 +106,11 @@ const getRespUser = async (name, password) => {
         input_password_old.value,
       );
       window.sessionStorage.setItem('user_code', user.user_code);
+      window.sessionStorage.setItem('total_score', String(Number(user.score)));
+      window.sessionStorage.setItem(
+        'start_time',
+        String(Date.parse(new Date())),
+      );
       window.location.href = '/ar';
     }
   });
