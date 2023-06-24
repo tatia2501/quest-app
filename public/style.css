@@ -266,7 +266,7 @@ tr:nth-child(even) td {
     border-color: #9bc414;
 }
 
-.delete_one_result_btn {
+#delete_one_result_btn {
     font-family: 'Lora', serif;
     color: #000000;
     background: #f7fce7;

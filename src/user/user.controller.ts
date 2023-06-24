@@ -19,7 +19,7 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
-} from "@nestjs/swagger";
+} from '@nestjs/swagger';
 @ApiTags('user')
 @Controller('user')
 export class UserController {
