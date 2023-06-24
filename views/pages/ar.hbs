@@ -8,142 +8,166 @@
   <script src="libs/threex-artoolkitcontext.js"></script>
   <script src="libs/threex-arbasecontrols.js"></script>
   <script src="libs/threex-armarkercontrols.js"></script>
+
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+  <script src='https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.js'></script>
+  <script>
+    THREEx.ArToolkitContext.baseURL = 'https://raw.githack.com/jeromeetienne/ar.js/master/three.js/'
+  </script>
 </head>
 <body>
-<script>
-  var scene, camera, renderer, clock, deltaTime, totalTime;
-  var arToolkitSource, arToolkitContext;
+<a-scene
+  vr-mode-ui="enabled: false"
+  embedded
+  arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
 
-  const getMarkers = async () => {
-    return await fetch(`/marker`, { method: 'GET' }).then((response) => response.json());
-  };
+  <a-entity gltf-model="data/magnemite/scene.gltf" rotation="0 180 0" scale="0.15 0.15 0.15" gps-entity-place="longitude: 36.868580; latitude: 58.937312;" animation-mixer></a-entity>
 
-  const changeScore = async (user_id, score) => {
-    await fetch(`/user/${user_id}?score=${score}`, {
-      method: 'PUT',
-      headers: {
-        accept: '*/*'
-      },
-    });
-  };
+  <a-text
+    value="This content will always face you."
+    look-at="[gps-camera]"
+    scale="120 120 120"
+    gps-entity-place="latitude: 58.937312; longitude:  36.868580;"
+  ></a-text>
+  <!-- use far property to hide objects over 5000 meters -->
+  <a-camera far="5000" gps-camera rotation-reader></a-camera>
+</a-scene>
 
-  async function initialize() {
-    scene = new THREE.Scene();
+<!--<script>-->
+<!--  var scene, camera, renderer, clock, deltaTime, totalTime;-->
+<!--  var arToolkitSource, arToolkitContext;-->
 
-    let ambientLight = new THREE.AmbientLight(0xcccccc, 0.5);
-    scene.add(ambientLight);
+<!--  const getMarkers = async () => {-->
+<!--    return await fetch(`/marker`, { method: 'GET' }).then((response) => response.json());-->
+<!--  };-->
 
-    camera = new THREE.Camera();
-    scene.add(camera);
+<!--  const changeScore = async (user_id, score) => {-->
+<!--    await fetch(`/user/${user_id}?score=${score}`, {-->
+<!--      method: 'PUT',-->
+<!--      headers: {-->
+<!--        accept: '*/*'-->
+<!--      },-->
+<!--    });-->
+<!--  };-->
 
-    renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true
-    });
-    renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-    renderer.setSize(640, 480);
-    renderer.domElement.style.position = 'absolute'
-    renderer.domElement.style.top = '0px'
-    renderer.domElement.style.left = '0px'
-    document.body.appendChild(renderer.domElement);
+<!--  async function initialize() {-->
+<!--    scene = new THREE.Scene();-->
 
-    clock = new THREE.Clock();
-    deltaTime = 0;
-    totalTime = 0;
+<!--    let ambientLight = new THREE.AmbientLight(0xcccccc, 0.5);-->
+<!--    scene.add(ambientLight);-->
 
-    arToolkitSource = new THREEx.ArToolkitSource({
-      sourceType: 'webcam',
-    });
+<!--    camera = new THREE.Camera();-->
+<!--    scene.add(camera);-->
 
-    function onResize() {
-      arToolkitSource.onResize()
-      arToolkitSource.copySizeTo(renderer.domElement)
-      if (arToolkitContext.arController !== null) {
-        arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)
-      }
-    }
+<!--    renderer = new THREE.WebGLRenderer({-->
+<!--      antialias: true,-->
+<!--      alpha: true-->
+<!--    });-->
+<!--    renderer.setClearColor(new THREE.Color('lightgrey'), 0)-->
+<!--    renderer.setSize(640, 480);-->
+<!--    renderer.domElement.style.position = 'absolute'-->
+<!--    renderer.domElement.style.top = '0px'-->
+<!--    renderer.domElement.style.left = '0px'-->
+<!--    document.body.appendChild(renderer.domElement);-->
 
-    arToolkitSource.init(function onReady() {
-      onResize()
-    });
+<!--    clock = new THREE.Clock();-->
+<!--    deltaTime = 0;-->
+<!--    totalTime = 0;-->
 
-    window.addEventListener('resize', function() {
-      onResize()
-    });
+<!--    arToolkitSource = new THREEx.ArToolkitSource({-->
+<!--      sourceType: 'webcam',-->
+<!--    });-->
 
-    arToolkitContext = new THREEx.ArToolkitContext({
-      cameraParametersUrl: 'libs/camera_para.dat',
-      detectionMode: 'mono'
-    });
+<!--    function onResize() {-->
+<!--      arToolkitSource.onResize()-->
+<!--      arToolkitSource.copySizeTo(renderer.domElement)-->
+<!--      if (arToolkitContext.arController !== null) {-->
+<!--        arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)-->
+<!--      }-->
+<!--    }-->
 
-    arToolkitContext.init(function onCompleted() {
-      camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
-    });
+<!--    arToolkitSource.init(function onReady() {-->
+<!--      onResize()-->
+<!--    });-->
 
-    const data = (await getMarkers()).slice();
-    var markerRoots = [];
-    var i = 0;
+<!--    window.addEventListener('resize', function() {-->
+<!--      onResize()-->
+<!--    });-->
 
-    for (const item of data) {
-      markerRoots[i] = new THREE.Group();
+<!--    arToolkitContext = new THREEx.ArToolkitContext({-->
+<!--      cameraParametersUrl: 'libs/camera_para.dat',-->
+<!--      detectionMode: 'mono'-->
+<!--    });-->
 
-      let markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoots[i], {
-        type: 'pattern', patternUrl: `data/${item.image}.patt`,
-      })
+<!--    arToolkitContext.init(function onCompleted() {-->
+<!--      camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());-->
+<!--    });-->
 
-      markerControls.addEventListener('markerFound', async () => {
-        let start_time = sessionStorage.getItem('start_time');
-        let user_code = sessionStorage.getItem('user_code');
-        let total_score = sessionStorage.getItem('total_score');
-        let current_time = Date.parse(new Date());
-        let minutes = (current_time - Number(start_time)) / 60000;
-        await changeScore(user_code, String(Number(minutes.toFixed(2)) + Number(total_score)));
-      });
+<!--    const data = (await getMarkers()).slice();-->
+<!--    var markerRoots = [];-->
+<!--    var i = 0;-->
 
-      const canvas = document.createElement('canvas')
-      const context = canvas.getContext('2d')
-      context.fillStyle = 'black'
-      context.font = '10px sans-serif'
-      context.fillText(`${item.text}`, 90, 90)
-      const texture = new THREE.Texture(canvas)
-      texture.needsUpdate = true
-      var material = new THREE.MeshBasicMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-      })
-      material.transparent = true
-      var mesh = new THREE.Mesh(new THREE.PlaneGeometry(3, 3), material)
-      mesh.name = 'text'
-      mesh.rotation.x = -Math.PI / 2;
-      markerRoots[i].add(mesh)
+<!--    for (const item of data) {-->
+<!--      markerRoots[i] = new THREE.Group();-->
 
-      scene.add(markerRoots[i]);
-      i++;
-    }
-  }
+<!--      let markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoots[i], {-->
+<!--        type: 'pattern', patternUrl: `data/${item.image}.patt`,-->
+<!--      })-->
 
-  function update()
-  {
-    if ( arToolkitSource.ready !== false )
-      arToolkitContext.update( arToolkitSource.domElement );
-  }
+<!--      markerControls.addEventListener('markerFound', async () => {-->
+<!--        let start_time = sessionStorage.getItem('start_time');-->
+<!--        let user_code = sessionStorage.getItem('user_code');-->
+<!--        let total_score = sessionStorage.getItem('total_score');-->
+<!--        let current_time = Date.parse(new Date());-->
+<!--        let minutes = (current_time - Number(start_time)) / 60000;-->
+<!--        await changeScore(user_code, String(Number(minutes.toFixed(2)) + Number(total_score)));-->
+<!--      });-->
 
-  function render()
-  {
-    renderer.render( scene, camera );
-  }
+<!--      const canvas = document.createElement('canvas')-->
+<!--      const context = canvas.getContext('2d')-->
+<!--      context.fillStyle = 'black'-->
+<!--      context.font = '10px sans-serif'-->
+<!--      context.fillText(`${item.text}`, 90, 90)-->
+<!--      const texture = new THREE.Texture(canvas)-->
+<!--      texture.needsUpdate = true-->
+<!--      var material = new THREE.MeshBasicMaterial({-->
+<!--        map: texture,-->
+<!--        side: THREE.DoubleSide,-->
+<!--      })-->
+<!--      material.transparent = true-->
+<!--      var mesh = new THREE.Mesh(new THREE.PlaneGeometry(3, 3), material)-->
+<!--      mesh.name = 'text'-->
+<!--      mesh.rotation.x = -Math.PI / 2;-->
+<!--      markerRoots[i].add(mesh)-->
 
-  function animate()
-  {
-    requestAnimationFrame(animate);
-    deltaTime = clock.getDelta();
-    totalTime += deltaTime;
-    update();
-    render();
-  }
+<!--      scene.add(markerRoots[i]);-->
+<!--      i++;-->
+<!--    }-->
+<!--  }-->
 
-  initialize();
-  animate();
-</script>
+<!--  function update()-->
+<!--  {-->
+<!--    if ( arToolkitSource.ready !== false )-->
+<!--      arToolkitContext.update( arToolkitSource.domElement );-->
+<!--  }-->
+
+<!--  function render()-->
+<!--  {-->
+<!--    renderer.render( scene, camera );-->
+<!--  }-->
+
+<!--  function animate()-->
+<!--  {-->
+<!--    requestAnimationFrame(animate);-->
+<!--    deltaTime = clock.getDelta();-->
+<!--    totalTime += deltaTime;-->
+<!--    update();-->
+<!--    render();-->
+<!--  }-->
+
+<!--  initialize();-->
+<!--  animate();-->
+<!--</script>-->
 </body>
 </html>
