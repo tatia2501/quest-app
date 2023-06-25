@@ -8,13 +8,7 @@ import {
   Body,
   ParseUUIDPipe,
 } from '@nestjs/common';
-import {
-  ApiCreatedResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { MarkerService } from './marker.service';
 import { MarkerReturnDto } from './marker.returnDto';
 import { MarkerCreateDto } from './marker.createDto';
@@ -23,22 +17,12 @@ import { MarkerCreateDto } from './marker.createDto';
 export class MarkerController {
   constructor(private markerService: MarkerService) {}
   @Get(':marker_id')
-  @ApiOkResponse({
-    description: '',
-    type: MarkerReturnDto,
-  })
-  @ApiNotFoundResponse({ description: '' })
   async findMarker(
     @Param('marker_id', ParseUUIDPipe) id: string,
   ): Promise<MarkerReturnDto> {
     return this.markerService.findMarker(id);
   }
   @Get('')
-  @ApiOkResponse({
-    description: '',
-    type: [MarkerReturnDto],
-  })
-  @ApiNotFoundResponse({ description: '' })
   async findAll(): Promise<MarkerReturnDto[]> {
     return this.markerService.findAll();
   }
@@ -52,31 +36,19 @@ export class MarkerController {
   //   return this.markerService.addMarker(Marker);
   // }
   @Post('')
-  @ApiCreatedResponse({ description: '' })
-  @ApiForbiddenResponse({ description: '' })
   async addMarker() {
     await this.markerService.addMarker();
   }
 
   @Delete(':marker_id')
-  @ApiOkResponse({ description: '' })
-  @ApiForbiddenResponse({
-    description: '',
-  })
   async deleteMarker(@Param('marker_id', ParseUUIDPipe) id: string) {
     await this.markerService.deleteMarker(id);
   }
   @Delete('')
-  @ApiOkResponse({ description: '' })
-  @ApiForbiddenResponse({
-    description: '',
-  })
   async deleteAll() {
     await this.markerService.deleteAll();
   }
   @Put(':marker_id')
-  @ApiOkResponse({ description: '' })
-  @ApiForbiddenResponse({ description: '' })
   async changeMarker(
     @Param('marker_id', ParseUUIDPipe) id: string,
     @Body() Marker: MarkerCreateDto,

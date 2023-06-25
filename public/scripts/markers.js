@@ -1,5 +1,6 @@
 const container = document.getElementById('edit_markers');
 const markers_template = document.getElementById('markers_template');
+const text_when_no_markers = document.getElementById('text_when_no_markers');
 
 const getMarkers = async () => {
   return await fetch(`/marker`, { method: 'GET' }).then((response) =>
@@ -36,6 +37,7 @@ const changeMarker = async (marker_id, image, text) => {
 async function getAllMarkers() {
   const data = (await getMarkers()).slice();
   container.innerHTML = '';
+  let i = 0;
   for (const item of data) {
     const marker = markers_template.content.cloneNode(true);
     let image = marker.getElementById('edit_image');
@@ -60,6 +62,11 @@ async function getAllMarkers() {
       window.location.reload();
     });
     container.appendChild(marker);
+    i++;
+  }
+  if (i === 0) {
+    text_when_no_markers.textContent = 'Маркеров нет';
+    edit_delete_all_btn.style.visibility = 'hidden';
   }
 }
 

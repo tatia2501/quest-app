@@ -84,234 +84,448 @@
     margin: 2px;
 }
 
-.edit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Lora', serif;
+@media screen and (max-width: 700px) {
+    .edit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Lora', serif;
+    }
+
+    .edit_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .edit_header{
+        font-family: 'Lora', serif;
+        font-size: x-large;
+        margin: 7px;
+    }
+
+    .tip {
+        font-family: 'Lora', serif;
+        font-size: small;
+        margin: 3px;
+        font-style: italic;
+    }
+
+    .edit_piece {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #f7fce7;
+        border: 2px dotted #ccee5c;
+        width: 400px;
+        margin: 7px;
+    }
+
+    .params {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .param {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 20px;
+    }
+
+    #edit_input_img {
+        font-family: 'Lora', serif;
+        margin: 3px;
+    }
+
+    #edit_input_text {
+        font-family: 'Lora', serif;
+        margin: 3px;
+    }
+
+    #edit_btn_img {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        border-color: #9bc414;
+        margin: 3px;
+    }
+
+    #edit_btn_text {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        border-color: #9bc414;
+        margin: 3px;
+    }
+
+    #edit_input_pos {
+        font-family: 'Lora', serif;
+        margin: 3px;
+    }
+
+    #edit_btn_pos {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        border-color: #9bc414;
+        margin: 3px;
+    }
+
+    #edit_input_anim {
+        font-family: 'Lora', serif;
+        margin: 3px;
+    }
+
+    #edit_btn_anim {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        border-color: #9bc414;
+        margin: 3px;
+    }
+
+    #edit_delete_btn {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        border-color: #9bc414;
+        margin: 3px 3px 10px 300px;
+    }
+
+    #edit_delete_btn_anim {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        border-color: #9bc414;
+        margin: 3px 3px 10px 300px;
+    }
+
+    .watch_results_btn {
+        font-family: 'Lora', serif;
+        font-size: large;
+        text-decoration: none;
+        color: #000000;
+        background: #ccee5c;
+        border: 2px solid #9bc414;
+        margin: 20px;
+    }
+
+    .result_page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .table_results {
+        width: 400px;
+    }
+
+    table {
+        display: grid;
+        font-family: 'Lora', serif;
+        font-size: 15px;
+        margin: 3%;
+        grid-template-columns:
+    minmax(220px, 6fr) minmax(90px, 2fr) minmax(90px, 2fr)
+    }
+
+    thead, tbody, tr {
+        display: contents;
+    }
+
+    th {
+        background: #ccee5c;
+        color: #000000;
+        padding: 10px;
+        text-align: center;
+    }
+
+    td {
+        color: #000000;
+        padding: 10px;
+        text-align: center;
+    }
+
+    tr:nth-child(even) td {
+        background: #f7fce7;
+    }
+
+    #results_delete_btn {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        margin: 10px 3px 3px 250px;
+        border-color: #9bc414;
+    }
+
+    #delete_one_result_btn {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #f7fce7;
+        border-color: #ccee5c;
+    }
+
+    #edit_delete_all_btn {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        margin: 10px 3px 3px 200px;
+        border-color: #9bc414;
+    }
+
+    #edit_add_btn {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        margin: 10px 3px 3px 10px;
+        border-color: #9bc414;
+    }
+
+    #edit_delete_all_btn_anim {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        margin: 10px 3px 3px 200px;
+        border-color: #9bc414;
+    }
+
+    #edit_add_btn_anim {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        margin: 10px 3px 3px 10px;
+        border-color: #9bc414;
+    }
 }
 
-.edit_section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+@media screen and (min-width: 700px) {
+    .edit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Lora', serif;
+    }
 
-.edit_header{
-    font-family: 'Lora', serif;
-    font-size: x-large;
-    margin: 7px;
-}
+    .edit_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
-.tip {
-    font-family: 'Lora', serif;
-    font-size: small;
-    margin: 3px;
-    font-style: italic;
-}
+    .edit_header{
+        font-family: 'Lora', serif;
+        font-size: x-large;
+        margin: 7px;
+    }
 
-.edit_piece {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: #f7fce7;
-    border: 2px dotted #ccee5c;
-    width: 700px;
-    margin: 7px;
-}
+    .tip {
+        font-family: 'Lora', serif;
+        font-size: small;
+        margin: 3px;
+        font-style: italic;
+    }
 
-.edit_piece {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: #f7fce7;
-    border: 2px dotted #ccee5c;
-    width: 700px;
-}
+    .edit_piece {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #f7fce7;
+        border: 2px dotted #ccee5c;
+        width: 700px;
+        margin: 7px;
+    }
 
-.params {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
+    .params {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
 
-.param {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 20px;
-}
+    .param {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 20px;
+    }
 
-#edit_input_img {
-    font-family: 'Lora', serif;
-    margin: 3px;
-}
+    #edit_input_img {
+        font-family: 'Lora', serif;
+        margin: 3px;
+    }
 
-#edit_input_text {
-    font-family: 'Lora', serif;
-    margin: 3px;
-}
+    #edit_input_text {
+        font-family: 'Lora', serif;
+        margin: 3px;
+    }
 
-#edit_btn_img {
-    font-family: 'Lora', serif;
-    color: #000000;
-    background: #ccee5c;
-    border-color: #9bc414;
-    margin: 3px;
-}
+    #edit_btn_img {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        border-color: #9bc414;
+        margin: 3px;
+    }
 
-#edit_btn_text {
-    font-family: 'Lora', serif;
-    color: #000000;
-    background: #ccee5c;
-    border-color: #9bc414;
-    margin: 3px;
-}
+    #edit_btn_text {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        border-color: #9bc414;
+        margin: 3px;
+    }
 
-#edit_input_pos {
-    font-family: 'Lora', serif;
-    margin: 3px;
-}
+    #edit_input_pos {
+        font-family: 'Lora', serif;
+        margin: 3px;
+    }
 
-#edit_btn_pos {
-    font-family: 'Lora', serif;
-    color: #000000;
-    background: #ccee5c;
-    border-color: #9bc414;
-    margin: 3px;
-}
+    #edit_btn_pos {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        border-color: #9bc414;
+        margin: 3px;
+    }
 
-#edit_input_anim {
-    font-family: 'Lora', serif;
-    margin: 3px;
-}
+    #edit_input_anim {
+        font-family: 'Lora', serif;
+        margin: 3px;
+    }
 
-#edit_btn_anim {
-    font-family: 'Lora', serif;
-    color: #000000;
-    background: #ccee5c;
-    border-color: #9bc414;
-    margin: 3px;
-}
+    #edit_btn_anim {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        border-color: #9bc414;
+        margin: 3px;
+    }
 
-#edit_delete_btn {
-    font-family: 'Lora', serif;
-    color: #000000;
-    background: #ccee5c;
-    border-color: #9bc414;
-    margin: 3px 3px 10px 600px;
-}
+    #edit_delete_btn {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        border-color: #9bc414;
+        margin: 3px 3px 10px 600px;
+    }
 
-#edit_delete_btn_anim {
-    font-family: 'Lora', serif;
-    color: #000000;
-    background: #ccee5c;
-    border-color: #9bc414;
-    margin: 3px 3px 10px 600px;
-}
+    #edit_delete_btn_anim {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        border-color: #9bc414;
+        margin: 3px 3px 10px 600px;
+    }
 
-.watch_results_btn {
-    font-family: 'Lora', serif;
-    font-size: large;
-    text-decoration: none;
-    color: #000000;
-    background: #ccee5c;
-    border: 2px solid #9bc414;
-    margin: 20px;
-}
+    .watch_results_btn {
+        font-family: 'Lora', serif;
+        font-size: large;
+        text-decoration: none;
+        color: #000000;
+        background: #ccee5c;
+        border: 2px solid #9bc414;
+        margin: 20px;
+    }
 
-.result_page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+    .result_page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
-.table_results {
-    width: 500px;
-}
+    .table_results {
+        width: 500px;
+    }
 
-table {
-    display: grid;
-    font-family: 'Lora', serif;
-    font-size: 15px;
-    margin: 3%;
-    grid-template-columns:
+    table {
+        display: grid;
+        font-family: 'Lora', serif;
+        font-size: 15px;
+        margin: 3%;
+        grid-template-columns:
     minmax(300px, 6fr) minmax(100px, 2fr) minmax(100px, 2fr)
-}
+    }
 
-thead, tbody, tr {
-    display: contents;
-}
+    thead, tbody, tr {
+        display: contents;
+    }
 
-th {
-    background: #ccee5c;
-    color: #000000;
-    padding: 10px;
-    text-align: center;
-}
+    th {
+        background: #ccee5c;
+        color: #000000;
+        padding: 10px;
+        text-align: center;
+    }
 
-td {
-    color: #000000;
-    padding: 10px;
-    text-align: center;
-}
+    td {
+        color: #000000;
+        padding: 10px;
+        text-align: center;
+    }
 
-tr:nth-child(even) td {
-    background: #f7fce7;
-}
+    tr:nth-child(even) td {
+        background: #f7fce7;
+    }
 
-#results_delete_btn {
-    font-family: 'Lora', serif;
-    color: #000000;
-    background: #ccee5c;
-    margin: 10px 3px 3px 400px;
-    border-color: #9bc414;
-}
+    #results_delete_btn {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        margin: 10px 3px 3px 400px;
+        border-color: #9bc414;
+    }
 
-#delete_one_result_btn {
-    font-family: 'Lora', serif;
-    color: #000000;
-    background: #f7fce7;
-    border-color: #ccee5c;
-}
+    #delete_one_result_btn {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #f7fce7;
+        border-color: #ccee5c;
+    }
 
-#edit_delete_all_btn {
-    font-family: 'Lora', serif;
-    color: #000000;
-    background: #ccee5c;
-    margin: 10px 3px 3px 500px;
-    border-color: #9bc414;
-}
+    #edit_delete_all_btn {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        margin: 10px 3px 3px 500px;
+        border-color: #9bc414;
+    }
 
-#edit_add_btn {
-    font-family: 'Lora', serif;
-    color: #000000;
-    background: #ccee5c;
-    margin: 10px 3px 3px 10px;
-    border-color: #9bc414;
-}
+    #edit_add_btn {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        margin: 10px 3px 3px 10px;
+        border-color: #9bc414;
+    }
 
-#edit_delete_all_btn_anim {
-    font-family: 'Lora', serif;
-    color: #000000;
-    background: #ccee5c;
-    margin: 10px 3px 3px 500px;
-    border-color: #9bc414;
-}
+    #edit_delete_all_btn_anim {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        margin: 10px 3px 3px 500px;
+        border-color: #9bc414;
+    }
 
-#edit_add_btn_anim {
-    font-family: 'Lora', serif;
-    color: #000000;
-    background: #ccee5c;
-    margin: 10px 3px 3px 10px;
-    border-color: #9bc414;
+    #edit_add_btn_anim {
+        font-family: 'Lora', serif;
+        color: #000000;
+        background: #ccee5c;
+        margin: 10px 3px 3px 10px;
+        border-color: #9bc414;
+    }
 }
 
 #animation_piece {
