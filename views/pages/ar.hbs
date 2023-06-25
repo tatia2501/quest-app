@@ -8,8 +8,10 @@
   <script src="libs/threex-artoolkitcontext.js"></script>
   <script src="libs/threex-arbasecontrols.js"></script>
   <script src="libs/threex-armarkercontrols.js"></script>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
 </head>
 <body>
+<model-viewer id="animation_piece" autoplay auto-rotate ar ar-modes="webxr" ar-scale="auto" shadow-intensity="1" alt="Animation"></model-viewer>
 <script>
   var scene, camera, renderer, clock, deltaTime, totalTime;
   var arToolkitSource, arToolkitContext;
@@ -26,6 +28,32 @@
       },
     });
   };
+
+  const getAnimations = async () => {
+    return await fetch(`/animation`, { method: 'GET' }).then((response) => response.json());
+  };
+
+  function setAnimation() {
+    navigator.geolocation.getCurrentPosition(async function(location) {
+      const data = (await getAnimations()).slice();
+      for (const item of data) {
+        let latitude = item.position.split(' ')[0];
+        let longitude = item.position.split(' ')[1];
+        if (location.coords.latitude <= (Number(latitude) + 0.0001) && location.coords.latitude >= (Number(latitude) - 0.0001)
+          && location.coords.longitude >= (Number(longitude) - 0.0001) && location.coords.longitude <= (Number(longitude) + 0.0001)) {
+            const viewer = document.getElementById('animation_piece');
+            viewer.src = `data/${item.animation}.glb`;
+            let start_time = sessionStorage.getItem('start_time');
+            let user_code = sessionStorage.getItem('user_code');
+            let total_score = sessionStorage.getItem('total_score');
+            let current_time = Date.parse(new Date());
+            let minutes = (current_time - Number(start_time)) / 60000;
+            await changeScore(user_code, String(Number(minutes.toFixed(2)) + Number(total_score)));
+        }
+      }
+    });
+      setTimeout(setAnimation, 1000);
+  }
 
   async function initialize() {
     scene = new THREE.Scene();
@@ -142,6 +170,7 @@
     render();
   }
 
+  setAnimation();
   initialize();
   animate();
 </script>

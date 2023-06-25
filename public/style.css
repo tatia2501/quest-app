@@ -105,7 +105,7 @@
     margin: 7px;
 }
 
-#edit_piece {
+.edit_piece {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -113,6 +113,7 @@
     background: #f7fce7;
     border: 2px dotted #ccee5c;
     width: 700px;
+    margin: 7px;
 }
 
 .edit_piece {
@@ -200,12 +201,12 @@
     margin: 3px 3px 10px 600px;
 }
 
-.edit_add_btn {
+#edit_delete_btn_anim {
     font-family: 'Lora', serif;
     color: #000000;
     background: #ccee5c;
-    margin: 10px 3px 3px 600px;
     border-color: #9bc414;
+    margin: 3px 3px 10px 600px;
 }
 
 .watch_results_btn {
@@ -215,6 +216,7 @@
     color: #000000;
     background: #ccee5c;
     border: 2px solid #9bc414;
+    margin: 20px;
 }
 
 .result_page {
@@ -271,4 +273,36 @@ tr:nth-child(even) td {
     color: #000000;
     background: #f7fce7;
     border-color: #ccee5c;
+}
+
+#edit_delete_all_btn {
+    font-family: 'Lora', serif;
+    color: #000000;
+    background: #ccee5c;
+    margin: 10px 3px 3px 500px;
+    border-color: #9bc414;
+}
+
+#edit_add_btn {
+    font-family: 'Lora', serif;
+    color: #000000;
+    background: #ccee5c;
+    margin: 10px 3px 3px 10px;
+    border-color: #9bc414;
+}
+
+#edit_delete_all_btn_anim {
+    font-family: 'Lora', serif;
+    color: #000000;
+    background: #ccee5c;
+    margin: 10px 3px 3px 500px;
+    border-color: #9bc414;
+}
+
+#edit_add_btn_anim {
+    font-family: 'Lora', serif;
+    color: #000000;
+    background: #ccee5c;
+    margin: 10px 3px 3px 10px;
+    border-color: #9bc414;
 }
