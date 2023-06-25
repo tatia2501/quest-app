@@ -11,6 +11,10 @@ const deleteAnimation = async (animation_id) => {
   await fetch(`/animation/${animation_id}`, { method: 'DELETE' });
 };
 
+const deleteAllAnimations = async () => {
+  await fetch(`/animation`, { method: 'DELETE' });
+};
+
 const postAnimation = async () => {
   await fetch(`/animation`, { method: 'POST' });
 };
@@ -62,6 +66,13 @@ async function getAllMarkers() {
 let edit_add_btn_anim = document.getElementById('edit_add_btn_anim');
 edit_add_btn_anim.addEventListener('click', async () => {
   await postAnimation();
+  window.location.reload();
+});
+let edit_delete_all_btn_anim = document.getElementById(
+  'edit_delete_all_btn_anim',
+);
+edit_delete_all_btn_anim.addEventListener('click', async () => {
+  await deleteAllAnimations();
   window.location.reload();
 });
 

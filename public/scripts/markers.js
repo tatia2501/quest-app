@@ -11,6 +11,10 @@ const deleteMarker = async (marker_id) => {
   await fetch(`/marker/${marker_id}`, { method: 'DELETE' });
 };
 
+const deleteAllMarkers = async () => {
+  await fetch(`/marker`, { method: 'DELETE' });
+};
+
 const postMarker = async () => {
   await fetch(`/marker`, { method: 'POST' });
 };
@@ -62,6 +66,11 @@ async function getAllMarkers() {
 let edit_add_btn = document.getElementById('edit_add_btn');
 edit_add_btn.addEventListener('click', async () => {
   await postMarker();
+  window.location.reload();
+});
+let edit_delete_all_btn = document.getElementById('edit_delete_all_btn');
+edit_delete_all_btn.addEventListener('click', async () => {
+  await deleteAllMarkers();
   window.location.reload();
 });
 
