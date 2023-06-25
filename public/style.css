@@ -105,6 +105,13 @@
     margin: 7px;
 }
 
+.tip {
+    font-family: 'Lora', serif;
+    font-size: small;
+    margin: 3px;
+    font-style: italic;
+}
+
 .edit_piece {
     display: flex;
     flex-direction: column;
@@ -308,7 +315,7 @@ tr:nth-child(even) td {
 }
 
 #animation_piece {
-    margin-top: 200px;
-    width:100%;
-    height:300px;
+    margin-top: 300px;
+    width: 100%;
+    height: 500px;
 }
