@@ -49,14 +49,14 @@ async function getAllMarkers() {
       await deleteAnimation(item.id);
       window.location.reload();
     });
-    let edit_input_anim = animation.getElementById('edit_input_anim');
-    let edit_btn_anim = animation.getElementById('edit_btn_anim');
+    // let edit_input_anim = animation.getElementById('edit_input_anim');
+    // let edit_btn_anim = animation.getElementById('edit_btn_anim');
     let edit_input_pos = animation.getElementById('edit_input_pos');
     let edit_btn_pos = animation.getElementById('edit_btn_pos');
-    edit_btn_anim.addEventListener('click', async () => {
-      await changeAnimation(item.id, edit_input_anim.value, item.position);
-      window.location.reload();
-    });
+    // edit_btn_anim.addEventListener('click', async () => {
+    //   await changeAnimation(item.id, edit_input_anim.value, item.position);
+    //   window.location.reload();
+    // });
     edit_btn_pos.addEventListener('click', async () => {
       await changeAnimation(item.id, item.animation, edit_input_pos.value);
       window.location.reload();
