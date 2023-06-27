@@ -49,14 +49,14 @@ async function getAllMarkers() {
       await deleteMarker(item.id);
       window.location.reload();
     });
-    // let edit_input_img = marker.getElementById('edit_input_img');
-    // let edit_btn_img = marker.getElementById('edit_btn_img');
+    let edit_input_img = marker.getElementById('edit_input_img');
+    let edit_btn_img = marker.getElementById('edit_btn_img');
     let edit_input_text = marker.getElementById('edit_input_text');
     let edit_btn_text = marker.getElementById('edit_btn_text');
-    // edit_btn_img.addEventListener('click', async () => {
-    //   await changeMarker(item.id, edit_input_img.value, item.text);
-    //   window.location.reload();
-    // });
+    edit_btn_img.addEventListener('click', async () => {
+      await changeMarker(item.id, edit_input_img.value, item.text);
+      window.location.reload();
+    });
     edit_btn_text.addEventListener('click', async () => {
       await changeMarker(item.id, item.image, edit_input_text.value);
       window.location.reload();
