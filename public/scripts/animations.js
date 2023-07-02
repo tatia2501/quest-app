@@ -1,4 +1,5 @@
 const container = document.getElementById('edit_animations');
+const text_when_no_anims = document.getElementById('text_when_no_anims');
 const animations_template = document.getElementById('animations_template');
 
 const getAnimations = async () => {
@@ -9,6 +10,10 @@ const getAnimations = async () => {
 
 const deleteAnimation = async (animation_id) => {
   await fetch(`/animation/${animation_id}`, { method: 'DELETE' });
+};
+
+const deleteAllAnimations = async () => {
+  await fetch(`/animation`, { method: 'DELETE' });
 };
 
 const postAnimation = async () => {
@@ -32,6 +37,7 @@ const changeAnimation = async (animation_id, anim, position) => {
 async function getAllMarkers() {
   const data = (await getAnimations()).slice();
   container.innerHTML = '';
+  let i = 0;
   for (const item of data) {
     const animation = animations_template.content.cloneNode(true);
     let edit_animation = animation.getElementById('edit_animation');
@@ -56,12 +62,24 @@ async function getAllMarkers() {
       window.location.reload();
     });
     container.appendChild(animation);
+    i++;
+  }
+  if (i === 0) {
+    text_when_no_anims.textContent = 'Анимаций нет';
+    edit_delete_all_btn_anim.visibility = 'hidden';
   }
 }
 
 let edit_add_btn_anim = document.getElementById('edit_add_btn_anim');
 edit_add_btn_anim.addEventListener('click', async () => {
   await postAnimation();
+  window.location.reload();
+});
+let edit_delete_all_btn_anim = document.getElementById(
+  'edit_delete_all_btn_anim',
+);
+edit_delete_all_btn_anim.addEventListener('click', async () => {
+  await deleteAllAnimations();
   window.location.reload();
 });
 

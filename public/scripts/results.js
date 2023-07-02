@@ -1,4 +1,5 @@
 const results = document.getElementById('results');
+const text_when_no_teams = document.getElementById('text_when_no_teams');
 
 const getUsers = async () => {
   return await fetch(`/user`, { method: 'GET' }).then((response) =>
@@ -16,6 +17,7 @@ const deleteAll = async () => {
 
 async function getAllUsers() {
   const data = (await getUsers()).slice();
+  let i = 0;
   for (const item of data) {
     let new_row = results.insertRow();
 
@@ -37,6 +39,11 @@ async function getAllUsers() {
       await deleteUser(item.id);
       window.location.reload();
     });
+    i++;
+  }
+  if (i === 0) {
+    text_when_no_teams.textContent = 'Команд нет';
+    results_delete_btn.visibility = 'hidden';
   }
 }
 

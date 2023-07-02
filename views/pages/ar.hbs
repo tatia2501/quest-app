@@ -11,7 +11,7 @@
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
 </head>
 <body>
-<model-viewer id="animation_piece" autoplay auto-rotate ar ar-modes="webxr" ar-scale="auto" shadow-intensity="1" alt="Animation"></model-viewer>
+<model-viewer id="animation_piece" autoplay camera-orbit="-30deg" ar ar-modes="webxr" shadow-intensity="1" alt="Animation"></model-viewer>
 <script>
   var scene, camera, renderer, clock, deltaTime, totalTime;
   var arToolkitSource, arToolkitContext;
@@ -130,9 +130,31 @@
 
       const canvas = document.createElement('canvas')
       const context = canvas.getContext('2d')
-      context.fillStyle = 'black'
-      context.font = '10px sans-serif'
-      context.fillText(`${item.text}`, 90, 90)
+      context.fillStyle = 'red'
+      context.font = 'bold 10px Calibri'
+
+      let maxWidth = 200;
+      let lineHeight = 15;
+      let marginLeft = 0;
+      let marginTop = 50;
+
+      let words = item.text.split(" ");
+      let countWords = words.length;
+      let line = "";
+      for (let n = 0; n < countWords; n++) {
+        let testLine = line + words[n] + " ";
+        let testWidth = context.measureText(testLine).width;
+        if (testWidth > maxWidth) {
+          context.fillText(line, marginLeft, marginTop);
+          line = words[n] + " ";
+          marginTop += lineHeight;
+        }
+        else {
+          line = testLine;
+        }
+      }
+      context.fillText(line, marginLeft, marginTop);
+
       const texture = new THREE.Texture(canvas)
       texture.needsUpdate = true
       var material = new THREE.MeshBasicMaterial({

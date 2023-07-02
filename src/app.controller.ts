@@ -28,6 +28,13 @@ export class AppController {
     };
   }
 
+  @Get('/position')
+  @Render('position')
+  position() {
+    return {
+      title: 'Квест',
+    };
+  }
   @Get('/results')
   @Render('results')
   results() {
